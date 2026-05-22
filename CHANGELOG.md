@@ -2,6 +2,11 @@
 
 Format wg [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/). Wersjonowanie [SemVer](https://semver.org/lang/pl/).
 
+## [0.2.0-alpha] - 2026-05-22
+
+### Dodane
+- **legal-request-router-pl** - klasyfikator/triage zadania prawnego na wejsciu: ocenia typ, zlozonosc i ryzyko, dobiera proporcjonalna sciezke kontroli (odpowiedz / grounding / debata / paczka audytowa) i kolejnosc skilli. Warstwa nad pozostalymi trzema. Cherry-pick patternu router/RouterClassification z AnttiHero/lavern, schemat i tabela decyzyjna od zera.
+
 ## [0.1.0-alpha] - 2026-05-22
 
 ### Dodane

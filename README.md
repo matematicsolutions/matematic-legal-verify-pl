@@ -1,18 +1,19 @@
 # matematic-legal-verify-pl - warstwa weryfikacji outputu AI prawnego
 
-Trzy otwarte skille **Claude Code**, ktore pilnuja, zeby wynik pracy AI nadawal sie do wyslania do klienta lub sadu: **czy cytaty sa prawdziwe**, **czy teza wytrzymuje atak** i **czy zostal slad zgodny z AI Act**.
+Cztery otwarte skille **Claude Code**, ktore pilnuja, zeby wynik pracy AI nadawal sie do wyslania do klienta lub sadu: **ktora sciezka kontroli wybrac**, **czy cytaty sa prawdziwe**, **czy teza wytrzymuje atak** i **czy zostal slad zgodny z AI Act**.
 
 To nie jest narzedzie do *pisania* pism. To warstwa, ktora sprawdza pisma **zanim wyjda za drzwi**.
 
-## Trzy skille
+## Cztery skille
 
 | Skill | Co robi | Skrypt |
 |---|---|---|
+| **legal-request-router-pl** | Klasyfikator zadania - na wejsciu ocenia zlozonosc i ryzyko, decyduje ktora sciezke kontroli uruchomic (zwykla odpowiedz / grounding / debata / paczka). Warstwa nad pozostalymi trzema; chroni przed paleniem tokenow na rutynie i przed przepuszczeniem high-stakes. | - |
 | **citation-grounding-pl** | Mechaniczny weryfikator cytatu - string-matchem sprawdza, czy kazdy cytat z orzeczenia / ustawy / umowy faktycznie istnieje w zrodle. Brak trafienia = potencjalna halucynacja, blokada. | `ground-citations.mjs` |
 | **adversarial-legal-review-pl** | Czerwony zespol dla pisma wysokiej stawki - builder buduje teze, attacker ja atakuje kontr-orzecznictwem, synthesizer godzi, verifier robi kontrole koncowa. Z bramka kosztu. | - |
 | **legal-ai-audit-bundle** | Pakuje deliverable + slad rozumowania + raport cytatow + log kosztu w jeden folder z manifestem i hashami SHA256 - artefakt zgodny z AI Act art. 12. | `assemble-bundle.mjs` |
 
-Skille sa **composable**: grounding jest punktem kontrolnym wewnatrz adversarial-review, a oba zasilaja audit-bundle dowodem.
+Skille sa **composable**: router dobiera sciezke, grounding jest punktem kontrolnym wewnatrz adversarial-review, a wszystkie zasilaja audit-bundle dowodem.
 
 ## Dla kogo
 
@@ -39,13 +40,14 @@ Skille sa **composable**: grounding jest punktem kontrolnym wewnatrz adversarial
 ```bash
 cd ~/.claude/skills/
 git clone https://github.com/matematicsolutions/matematic-legal-verify-pl
-# Linux/macOS - symlink trzech skilli:
+# Linux/macOS - symlink czterech skilli:
+ln -s matematic-legal-verify-pl/skills/legal-request-router-pl legal-request-router-pl
 ln -s matematic-legal-verify-pl/skills/citation-grounding-pl citation-grounding-pl
 ln -s matematic-legal-verify-pl/skills/adversarial-legal-review-pl adversarial-legal-review-pl
 ln -s matematic-legal-verify-pl/skills/legal-ai-audit-bundle legal-ai-audit-bundle
 ```
 
-Na Windows zamiast symlinka - kopia trzech folderow `skills/*` do `~/.claude/skills/`.
+Na Windows zamiast symlinka - kopia czterech folderow `skills/*` do `~/.claude/skills/`.
 
 Skrypty wymagaja **Node.js** (zero zaleznosci, czysty ESM). Sprawdz: `node --version`.
 
