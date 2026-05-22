@@ -1,20 +1,26 @@
 # matematic-legal-verify-pl - warstwa weryfikacji outputu AI prawnego
 
-Piec otwartych skilli **Claude Code**, ktore pilnuja, zeby praca z AI byla rzetelna od wejscia do wyjscia: **czy zlecenie wystarcza, by zaczac**, **ktora sciezka kontroli wybrac**, **czy cytaty sa prawdziwe**, **czy teza wytrzymuje atak** i **czy zostal slad zgodny z AI Act**.
+Szesc otwartych skilli **Claude Code**, ktore pilnuja, zeby praca z AI byla rzetelna od wejscia do wyjscia: **czy zlecenie wystarcza, by zaczac**, **ktora sciezka kontroli wybrac**, **czy cytaty sa prawdziwe**, **czy teza wytrzymuje atak**, **czy deliverable wiernie oddaje analize** i **czy zostal slad zgodny z AI Act**.
 
 To nie jest narzedzie do *pisania* pism. To warstwa, ktora sprawdza wejscie i wyjscie **zanim cokolwiek pojdzie do klienta lub sadu**.
 
-## Piec skilli
+## Szesc skilli
 
 | Skill | Co robi | Skrypt |
 |---|---|---|
-| **intake-sufficiency-pl** | Ocena wejscia - czy zlecenie ma dosc kontekstu (cel / zakres / podmiot / fakty / ograniczenia), by zaczac. Wypisuje luki, generuje pytania uzupelniajace do klienta, sklada szkielet engagement brief. | - |
+| **intake-sufficiency-pl** | Ocena wejscia - czy zlecenie ma dosc kontekstu (cel / zakres / podmiot / fakty / ograniczenia), by zaczac. Wypisuje luki, generuje pytania uzupelniajace do klienta, sklada szkielet karty zlecenia. | - |
 | **legal-request-router-pl** | Klasyfikator zadania - ocenia zlozonosc i ryzyko, decyduje ktora sciezke kontroli uruchomic (zwykla odpowiedz / grounding / debata / paczka). Warstwa nad weryfikacja outputu; chroni przed paleniem tokenow na rutynie i przed przepuszczeniem spraw wysokiej stawki. | - |
 | **citation-grounding-pl** | Mechaniczny weryfikator cytatu - string-matchem sprawdza, czy kazdy cytat z orzeczenia / ustawy / umowy faktycznie istnieje w zrodle. Brak trafienia = potencjalna halucynacja, blokada. | `ground-citations.mjs` |
 | **adversarial-legal-review-pl** | Czerwony zespol dla pisma wysokiej stawki - builder buduje teze, attacker ja atakuje kontr-orzecznictwem, synthesizer godzi, verifier robi kontrole koncowa. Z bramka kosztu. | - |
+| **deliverable-fidelity-pl** | Weryfikator wiernosci - czy finalny dokument oddaje ustalenia analizy (zadna flaga RED nie wypadla z podsumowania, rozstrzygniecia odzwierciedlone). Mechaniczny check + osad LLM na najciezszych. Pominiete RED = blokada. | `fidelity-check.mjs` |
 | **legal-ai-audit-bundle** | Pakuje deliverable + slad rozumowania + raport cytatow + log kosztu w jeden folder z manifestem i hashami SHA256 - artefakt zgodny z AI Act art. 12. | `assemble-bundle.mjs` |
 
-Skille sa **composable**: intake ocenia wejscie, router dobiera sciezke dla outputu, grounding jest punktem kontrolnym wewnatrz adversarial-review, a wszystkie zasilaja audit-bundle dowodem. intake i router to lustra - pierwszy pyta "czy mam dosc, by zaczac", drugi "jak skontrolowac wynik".
+Skille sa **composable**: intake ocenia wejscie, router dobiera sciezke dla outputu, grounding i fidelity sa punktami kontrolnymi (cytat prawdziwy / analiza wiernie oddana), adversarial atakuje teze, a wszystkie zasilaja audit-bundle dowodem. intake i router to lustra - pierwszy pyta "czy mam dosc, by zaczac", drugi "jak skontrolowac wynik".
+
+### Trzy osie weryfikacji wyniku
+- **citation-grounding-pl** - czy cytaty istnieja w zrodle (prawdziwosc).
+- **adversarial-legal-review-pl** - czy teza wytrzymuje atak (odpornosc).
+- **deliverable-fidelity-pl** - czy deliverable oddaje analize (wiernosc).
 
 ## Dla kogo
 
@@ -41,15 +47,16 @@ Skille sa **composable**: intake ocenia wejscie, router dobiera sciezke dla outp
 ```bash
 cd ~/.claude/skills/
 git clone https://github.com/matematicsolutions/matematic-legal-verify-pl
-# Linux/macOS - symlink pieciu skilli:
+# Linux/macOS - symlink szesciu skilli:
 ln -s matematic-legal-verify-pl/skills/intake-sufficiency-pl intake-sufficiency-pl
 ln -s matematic-legal-verify-pl/skills/legal-request-router-pl legal-request-router-pl
 ln -s matematic-legal-verify-pl/skills/citation-grounding-pl citation-grounding-pl
 ln -s matematic-legal-verify-pl/skills/adversarial-legal-review-pl adversarial-legal-review-pl
+ln -s matematic-legal-verify-pl/skills/deliverable-fidelity-pl deliverable-fidelity-pl
 ln -s matematic-legal-verify-pl/skills/legal-ai-audit-bundle legal-ai-audit-bundle
 ```
 
-Na Windows zamiast symlinka - kopia pieciu folderow `skills/*` do `~/.claude/skills/`.
+Na Windows zamiast symlinka - kopia szesciu folderow `skills/*` do `~/.claude/skills/`.
 
 Skrypty wymagaja **Node.js** (zero zaleznosci, czysty ESM). Sprawdz: `node --version`.
 

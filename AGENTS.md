@@ -4,13 +4,16 @@ Plik standardu [agents.md](https://agents.md) (Linux Foundation / Agentic AI Fou
 
 ## Cel projektu
 
-`matematic-legal-verify-pl` to piec otwartych **skilli Claude Code** tworzacych warstwe rzetelnosci pracy z AI prawnym (od wejscia do wyjscia):
+`matematic-legal-verify-pl` to szesc otwartych **skilli Claude Code** tworzacych warstwe rzetelnosci pracy z AI prawnym (od wejscia do wyjscia):
 
-1. **intake-sufficiency-pl** - ocena wejscia: czy zlecenie ma dosc kontekstu, by zaczac (rubryka 6 wymiarow -> score + luki + pytania uzupelniajace + engagement brief).
+1. **intake-sufficiency-pl** - ocena wejscia: czy zlecenie ma dosc kontekstu, by zaczac (rubryka 6 wymiarow -> score + luki + pytania uzupelniajace + karta zlecenia).
 2. **legal-request-router-pl** - klasyfikator zadania (zlozonosc + ryzyko -> sciezka kontroli outputu); lustro intake.
 3. **citation-grounding-pl** - mechaniczny weryfikator cytatu (string-match cytatu wobec zrodla; brak trafienia = halucynacja = blokada).
 4. **adversarial-legal-review-pl** - kontradyktoryjny stress-test pisma wysokiej stawki (builder / attacker / synthesizer / verifier), z bramka kosztu.
-5. **legal-ai-audit-bundle** - paczka audytowa AI Act art. 12 (manifest + SHA256 + INDEX.md).
+5. **deliverable-fidelity-pl** - weryfikator wiernosci (czy deliverable oddaje ustalenia analizy; pominiete RED = blokada); mechaniczny check + spot-check LLM.
+6. **legal-ai-audit-bundle** - paczka audytowa AI Act art. 12 (manifest + SHA256 + INDEX.md).
+
+Trzy osie weryfikacji wyniku: grounding=prawdziwosc cytatu, adversarial=odpornosc tezy, fidelity=wiernosc deliverable wobec analizy.
 
 Inspiracja cherry-pick: [AnttiHero/lavern](https://github.com/AnttiHero/lavern) (Apache 2.0). Tresc, prompty i skrypty **napisane od zera** pod polskie realia (RODO, PoA art. 6, AI Act). Nie skopiowano kodu ani promptow Lavern.
 
@@ -38,6 +41,9 @@ skills/
     scripts/ground-citations.mjs      - deterministyczny weryfikator (zero-dep ESM)
   adversarial-legal-review-pl/
     SKILL.md                          - orkiestracja 4 rol (bez skryptu)
+  deliverable-fidelity-pl/
+    SKILL.md
+    scripts/fidelity-check.mjs        - mechaniczny check reprezentacji ustalen (zero-dep ESM)
   legal-ai-audit-bundle/
     SKILL.md
     scripts/assemble-bundle.mjs       - skladanie paczki + SHA256 (zero-dep ESM)
@@ -87,8 +93,9 @@ Oba skrypty obsluguja BOM w plikach JSON (PowerShell `Out-File utf8` dopisuje BO
 3. [skills/legal-request-router-pl/SKILL.md](./skills/legal-request-router-pl/SKILL.md)
 4. [skills/citation-grounding-pl/SKILL.md](./skills/citation-grounding-pl/SKILL.md)
 5. [skills/adversarial-legal-review-pl/SKILL.md](./skills/adversarial-legal-review-pl/SKILL.md)
-6. [skills/legal-ai-audit-bundle/SKILL.md](./skills/legal-ai-audit-bundle/SKILL.md)
-7. [CHANGELOG.md](./CHANGELOG.md)
+6. [skills/deliverable-fidelity-pl/SKILL.md](./skills/deliverable-fidelity-pl/SKILL.md)
+7. [skills/legal-ai-audit-bundle/SKILL.md](./skills/legal-ai-audit-bundle/SKILL.md)
+8. [CHANGELOG.md](./CHANGELOG.md)
 
 ## Kompatybilnosc agentow
 

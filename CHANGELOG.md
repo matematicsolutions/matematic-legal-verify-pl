@@ -2,6 +2,11 @@
 
 Format wg [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/). Wersjonowanie [SemVer](https://semver.org/lang/pl/).
 
+## [0.4.0-alpha] - 2026-05-22
+
+### Dodane
+- **deliverable-fidelity-pl** - weryfikator wiernosci: czy finalny dokument oddaje ustalenia analizy (zadna flaga RED nie wypadla z podsumowania, rozstrzygniecia odzwierciedlone). Skrypt `fidelity-check.mjs` (zero-dep ESM): mechaniczny check reprezentacji ustalen z konserwatywnym stemem PL (utniecie 2 koncowych znakow przy slowach >=7 dla fleksji), pominiete RED -> exit 1; plus spot-check LLM na 3 najciezszych (bagatelizowanie tonu). Trzecia os weryfikacji obok grounding (prawdziwosc) i adversarial (odpornosc). Cherry-pick patternu post-assembly-verifier z AnttiHero/lavern.
+
 ## [0.3.0-alpha] - 2026-05-22
 
 ### Dodane
