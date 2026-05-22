@@ -4,12 +4,13 @@ Plik standardu [agents.md](https://agents.md) (Linux Foundation / Agentic AI Fou
 
 ## Cel projektu
 
-`matematic-legal-verify-pl` to cztery otwarte **skille Claude Code** tworzace warstwe weryfikacji outputu AI prawnego:
+`matematic-legal-verify-pl` to piec otwartych **skilli Claude Code** tworzacych warstwe rzetelnosci pracy z AI prawnym (od wejscia do wyjscia):
 
-1. **legal-request-router-pl** - klasyfikator zadania na wejsciu (zlozonosc + ryzyko -> sciezka kontroli); warstwa nad pozostalymi.
-2. **citation-grounding-pl** - mechaniczny weryfikator cytatu (string-match cytatu wobec zrodla; brak trafienia = halucynacja = blokada).
-3. **adversarial-legal-review-pl** - kontradyktoryjny stress-test pisma wysokiej stawki (builder / attacker / synthesizer / verifier), z bramka kosztu.
-4. **legal-ai-audit-bundle** - paczka audytowa AI Act art. 12 (manifest + SHA256 + INDEX.md).
+1. **intake-sufficiency-pl** - ocena wejscia: czy zlecenie ma dosc kontekstu, by zaczac (rubryka 6 wymiarow -> score + luki + pytania uzupelniajace + engagement brief).
+2. **legal-request-router-pl** - klasyfikator zadania (zlozonosc + ryzyko -> sciezka kontroli outputu); lustro intake.
+3. **citation-grounding-pl** - mechaniczny weryfikator cytatu (string-match cytatu wobec zrodla; brak trafienia = halucynacja = blokada).
+4. **adversarial-legal-review-pl** - kontradyktoryjny stress-test pisma wysokiej stawki (builder / attacker / synthesizer / verifier), z bramka kosztu.
+5. **legal-ai-audit-bundle** - paczka audytowa AI Act art. 12 (manifest + SHA256 + INDEX.md).
 
 Inspiracja cherry-pick: [AnttiHero/lavern](https://github.com/AnttiHero/lavern) (Apache 2.0). Tresc, prompty i skrypty **napisane od zera** pod polskie realia (RODO, PoA art. 6, AI Act). Nie skopiowano kodu ani promptow Lavern.
 
@@ -28,6 +29,8 @@ Repo prowadzi [MateMatic Solutions](https://matematicsolutions.com).
 
 ```
 skills/
+  intake-sufficiency-pl/
+    SKILL.md                          - ocena wystarczalnosci wejscia (bez skryptu)
   legal-request-router-pl/
     SKILL.md                          - klasyfikator/triage (bez skryptu)
   citation-grounding-pl/
@@ -80,11 +83,12 @@ Oba skrypty obsluguja BOM w plikach JSON (PowerShell `Out-File utf8` dopisuje BO
 ## Zrodla prawdy (kolejnosc czytania)
 
 1. [README.md](./README.md) - opis dla ludzi
-2. [skills/legal-request-router-pl/SKILL.md](./skills/legal-request-router-pl/SKILL.md)
-3. [skills/citation-grounding-pl/SKILL.md](./skills/citation-grounding-pl/SKILL.md)
-4. [skills/adversarial-legal-review-pl/SKILL.md](./skills/adversarial-legal-review-pl/SKILL.md)
-5. [skills/legal-ai-audit-bundle/SKILL.md](./skills/legal-ai-audit-bundle/SKILL.md)
-6. [CHANGELOG.md](./CHANGELOG.md)
+2. [skills/intake-sufficiency-pl/SKILL.md](./skills/intake-sufficiency-pl/SKILL.md)
+3. [skills/legal-request-router-pl/SKILL.md](./skills/legal-request-router-pl/SKILL.md)
+4. [skills/citation-grounding-pl/SKILL.md](./skills/citation-grounding-pl/SKILL.md)
+5. [skills/adversarial-legal-review-pl/SKILL.md](./skills/adversarial-legal-review-pl/SKILL.md)
+6. [skills/legal-ai-audit-bundle/SKILL.md](./skills/legal-ai-audit-bundle/SKILL.md)
+7. [CHANGELOG.md](./CHANGELOG.md)
 
 ## Kompatybilnosc agentow
 

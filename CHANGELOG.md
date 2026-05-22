@@ -2,6 +2,11 @@
 
 Format wg [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/). Wersjonowanie [SemVer](https://semver.org/lang/pl/).
 
+## [0.3.0-alpha] - 2026-05-22
+
+### Dodane
+- **intake-sufficiency-pl** - ocena wystarczalnosci zlecenia na wejsciu (rubryka 6 wymiarow: cel / zakres / podmiot / fakty / ograniczenia / kryteria sukcesu -> score 0-100 + werdykt + luki + pytania uzupelniajace do klienta + szkielet engagement brief). Lustro routera (wejscie vs output). Cherry-pick patternu briefing-schema z AnttiHero/lavern, rubryka i schemat od zera.
+
 ## [0.2.0-alpha] - 2026-05-22
 
 ### Dodane
