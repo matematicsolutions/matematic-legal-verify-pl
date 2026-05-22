@@ -1,0 +1,22 @@
+# Artefakty pracy - NIGDY do repo
+out/
+*.bundle/
+manifest.json
+INDEX.md
+
+# Mapy pseudonimizacji (klucz re-identyfikacji = dane osobowe, RODO art. 4 pkt 5)
+*-mapa.json
+*pseudonim*.json
+*mapping*.json
+
+# Dane klientow / zadania robocze
+task*.json
+descriptor*.json
+*.docx
+*.pdf
+
+# System
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
