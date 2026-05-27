@@ -76,7 +76,7 @@ Oba skrypty obsluguja BOM w plikach JSON (PowerShell `Out-File utf8` dopisuje BO
 - **Powolania prawne sprawdzane PRZED napisaniem** - numer artykulu AI Act / RODO / KPC weryfikowany, nie zgadywany. Jeden zly numer podwaza autorytet narzedzia, ktorego celem jest wlasnie eliminacja halucynacji.
 - **Determinizm tam, gdzie to mozliwe** - weryfikacja cytatu i hashe to skrypty, nie ocena modelu "na oko". Cala wartosc w przeciwdzialaniu halucynacjom lezy w mechanicznosci.
 - **Bez polskich znakow w commit messages** (konwencja organizacji).
-- **Marko-pl 2x runda + humanizer-pl** przed kazdym commitem zmieniajacym tresc SKILL.md / README.md.
+- **Wewnetrzny review tresci (2 rundy) + humanizacja stylu PL** przed kazdym commitem zmieniajacym tresc SKILL.md / README.md.
 
 ## Czego NIE robic (twarde reguly)
 
